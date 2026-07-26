@@ -441,6 +441,13 @@ figure.screen { margin: 0; background: var(--surface); border: 1px solid var(--l
 figure.screen a { display: block; }
 figure.screen img { width: 100%; display: block; cursor: zoom-in; }
 
+/* design explorations (11) */
+.explore-list { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
+.explore-item h4 { font-size: 1rem; margin-bottom: 8px; }
+.explore-item p { font-size: 0.93rem; }
+.explore-shot { margin-top: 16px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface-2); }
+.explore-shot img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+
 /* footer */
 footer {
   max-width: 1180px; margin: 0 auto; padding: 40px 32px 60px;
@@ -469,8 +476,9 @@ footer {
         <li><a href="#scale"><span class="n">08</span>Scale</a></li>
         <li><a href="#confirmation"><span class="n">09</span>Confirmation</a></li>
         <li><a href="#dropped"><span class="n">10</span>Dropped</a></li>
-        <li><a href="#final"><span class="n">11</span>Final design</a></li>
-        <li><a href="#insights"><span class="n">12</span>Insights</a></li>
+        <li><a href="#explorations"><span class="n">11</span>Explorations</a></li>
+        <li><a href="#final"><span class="n">12</span>Final design</a></li>
+        <li><a href="#insights"><span class="n">13</span>Insights</a></li>
       </ul>
     </nav>
   </aside>
@@ -868,9 +876,48 @@ footer {
       </div>
     </section>
 
-    <!-- 11 FINAL -->
+    <!-- 11 EXPLORATIONS -->
+    <section class="section" id="explorations">
+      <div class="eyebrow">11 · Along the way</div>
+      <h2>Initial design explorations and confusions</h2>
+      <p class="measure">Some decisions weren't clean from the start — small, specific UX questions that needed working through before the final screens held together.</p>
+
+      <div class="explore-list">
+        <div class="explore-item card">
+          <h4>How much reasoning to show for the score</h4>
+          <p>Weighed two options: collapse the reasoning into a short one-line tag next to the score (like "DUNS mismatch +3"), or lay out the full reasoning inside the table cell itself. Landed on both — a compact tag in the cell for scanning, with the full plain-language breakdown available on demand.</p>
+          <div class="explore-shot"><img src="images/explore-01-score-reasoning.png" alt="Compact score tag in the table cell, with the full reasoning expanded below it" /></div>
+        </div>
+
+        <div class="explore-item card">
+          <h4>Filters as pills, not a dropdown</h4>
+          <p>Considered tucking review status into a dropdown to save space. Decided on pills instead — it's important enough, and used often enough by Admins, that it deserves to stay visible and one click away, not hidden behind a menu.</p>
+          <div class="explore-shot"><img src="images/explore-02-filters-pills.png" alt="Review status shown as a row of pills instead of a dropdown" /></div>
+        </div>
+
+        <div class="explore-item card">
+          <h4>Ticking a duplicate shouldn't ask for anything</h4>
+          <p>The open question: should every tick of the Duplicate checkbox fire a confirmation, or a notification? Decided against it — the tick is reversible, so it doesn't need to interrupt. Once every non-lead record is ticked, the Admin can go straight to "Notify duplicates" in one action.</p>
+          <div class="explore-shot"><img src="images/explore-03-duplicate-notify.png" alt="Notify duplicates and Merge selected as direct actions, no per-tick confirmation" /></div>
+        </div>
+
+        <div class="explore-item card">
+          <h4>What search actually searches</h4>
+          <p>The open question: does search operate on groups, or on the instances inside them? Concluded it needs to reach into the instances within every group — legal name, DUNS, supplier code, contact — so an Admin can jump straight to the one record they're after instead of hunting through groups first.</p>
+          <div class="explore-shot"><img src="images/explore-04-search.png" alt="Search box scoped to search across instances within groups" /></div>
+        </div>
+
+        <div class="explore-item card">
+          <h4>Marking what's different from the lead</h4>
+          <p>Needed a way to show, at a glance, which fields on a duplicate diverge from the lead. Settled on a soft yellow background on any cell that differs, paired with a blue background on the lead row itself — so both "the record being kept" and "what doesn't match it" read instantly.</p>
+          <div class="explore-shot"><img src="images/explore-05-yellow-highlight.png" alt="Blue background on the lead row, yellow background on cells that differ from the lead" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 FINAL -->
     <section class="section" id="final">
-      <div class="eyebrow">11 · Final design — summary</div>
+      <div class="eyebrow">12 · Final design — summary</div>
       <h2>Where it landed</h2>
       <ul class="summary-list">
         <li><span class="ico">1</span><span><strong>Two-panel layout</strong> — a group queue on the left, a comparison view on the right.</span></li>
@@ -923,9 +970,9 @@ footer {
       </div>
     </section>
 
-    <!-- 12 INSIGHTS -->
+    <!-- 13 INSIGHTS -->
     <section class="section" id="insights">
-      <div class="eyebrow">12 · Insights and reflection</div>
+      <div class="eyebrow">13 · Insights and reflection</div>
       <h2>What this process actually taught</h2>
 
       <div class="insight">
