@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Supplier De-duplication — Design Case Study</title>
-<meta name="description" content="GEP SMART · Buyer Admin persona · A design case study on trusting an algorithm's guess enough to act on it." />
+<meta name="description" content="GEP SMART · Buyer Admin persona · A design case study about getting people to trust an algorithm's guess enough to act on it." />
 <style>
 /* ---------------------------------------------------------
    Tokens
@@ -488,7 +488,7 @@ footer {
     <div class="hero">
       <div class="hero-kicker"><b>GEP SMART</b> · Buyer Admin persona · Product design exploration</div>
       <h1>Supplier de-duplication</h1>
-      <p class="hero-thesis">"The system can only suggest a match. A person has to decide." The whole exploration is really about that handoff — how much to automate, and how to make the suggestion trustworthy enough to act on.</p>
+      <p class="hero-thesis">"The system can only suggest a match. A person has to decide." That's really the whole problem this project is about — how much to automate, and how to make people trust the suggestion enough to act on it.</p>
       <div class="hero-stats">
         <div class="stat-chip"><span class="v tabular">100K+</span><span class="l">supplier instances</span></div>
         <div class="stat-chip"><span class="v tabular">6</span><span class="l">pain points named first</span></div>
@@ -498,13 +498,13 @@ footer {
     <!-- 00 OVERVIEW -->
     <section class="section" id="overview">
       <div class="eyebrow">00 · Overview</div>
-      <h2>The problem, and the tension underneath it</h2>
+      <h2>The problem, and why it's tricky</h2>
       <div class="measure">
         <p><strong>Problem:</strong> Duplicate supplier records created by different Supplier Managers make it difficult to maintain a single source of truth. With over 100,000 supplier records, manual identification of duplicates is time-consuming, error-prone, and does not scale.</p>
-        <p><strong>Ask:</strong> design a way for a Buyer Admin to find, review, and resolve these duplicates at scale — 100K+ records.</p>
+        <p><strong>Ask:</strong> design a way for a Buyer Admin to find, review, and clean up these duplicates, even with 100,000+ records.</p>
       </div>
       <div class="callout">
-        <p><strong>Core tension:</strong> the system can only suggest a match. A person has to decide. Everything below is really about that handoff — how much to automate, and how to make the suggestion trustworthy enough to act on.</p>
+        <p><strong>Core tension:</strong> the system can only suggest a match. A person still has to decide. Everything below comes back to that one point — how much to automate, and how to make people trust the suggestion enough to act on it.</p>
       </div>
     </section>
 
@@ -513,11 +513,11 @@ footer {
       <div class="eyebrow">01 · Understanding the problem</div>
       <h2>What the brief is actually asking</h2>
       <div class="measure">
-        <p>Help someone trust an algorithm's guess enough to act on it, repeatedly, without breaking live purchase orders or contacts.</p>
-        <p>Every requirement in the brief exists to serve one moment — the point where an Admin looks at a group and decides what to do with it. Search, filters, bulk actions, notifications are all secondary to getting that moment right.</p>
+        <p>Help someone trust the system's guess enough to act on it, again and again, without breaking live purchase orders or contacts.</p>
+        <p>Every requirement in the brief is there to support one moment: when an Admin looks at a group and decides what to do with it. Search, filters, bulk actions, and notifications all come after getting that one moment right.</p>
       </div>
       <div class="callout">
-        <p>Merging is functionally irreversible in how it <em>feels</em> to the person doing it — live POs sit on these records. An unexplained "87% match" produces hesitation, not action. A percentage with no reasoning behind it fails the brief even if it's technically present.</p>
+        <p>Merging <em>feels</em> permanent to the person doing it, because live POs sit on these records. Show someone "87% match" with no reason behind it, and they hesitate instead of acting. So a number on its own doesn't really answer the brief, even if it's technically there.</p>
       </div>
     </section>
 
@@ -525,28 +525,28 @@ footer {
     <section class="section" id="exploration">
       <div class="eyebrow">02 · Exploration</div>
       <h2>Key points pulled from the PRD</h2>
-      <p class="measure">Went through the brief and pulled out what actually shapes the design, grouped under the areas it covers.</p>
+      <p class="measure">Went through the brief and pulled out the parts that actually shape the design, then grouped them under the areas the brief covers.</p>
 
       <div class="spec-grid" style="margin-top:24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
         <div class="card">
           <h3>Scale</h3>
-          <p style="font-size:0.92rem;">100K+ supplier instances in the system. Duplicates form multiple groups, each tied to one supplier organization.</p>
+          <p style="font-size:0.92rem;">Over 100,000 supplier records in the system. Duplicates form groups, and each group belongs to one supplier.</p>
         </div>
         <div class="card">
           <h3>Detection</h3>
-          <p style="font-size:0.92rem;">System auto-identifies likely duplicates, each needing a confidence score. Comparison covers legal name, status, head office, primary contact, contact email, DUNS number, supplier code, supplier manager.</p>
+          <p style="font-size:0.92rem;">The system finds likely duplicates on its own and gives each one a confidence score. It compares legal name, status, head office, main contact, contact email, DUNS number, supplier code, and supplier manager.</p>
         </div>
         <div class="card">
           <h3>Decision-making</h3>
-          <p style="font-size:0.92rem;">Admin manually confirms which instances are duplicates, picks a lead/master record per group. Changes apply to everything marked, in one action.</p>
+          <p style="font-size:0.92rem;">The Admin checks which records are really duplicates and picks one as the lead for each group. Changes then apply to everything marked, in one go.</p>
         </div>
         <div class="card">
           <h3>Discovery</h3>
-          <p style="font-size:0.92rem;">Admin needs to narrow down and find a specific supplier instance, not just browse groups blindly.</p>
+          <p style="font-size:0.92rem;">The Admin needs to search for one specific supplier record, not just scroll through groups.</p>
         </div>
         <div class="card">
           <h3>Communication</h3>
-          <p style="font-size:0.92rem;">Option to notify the Supplier Manager responsible for an instance, and/or contacts at the supplier.</p>
+          <p style="font-size:0.92rem;">Option to notify the Supplier Manager in charge of a record, and/or the contacts at the supplier.</p>
         </div>
       </div>
     </section>
@@ -555,32 +555,32 @@ footer {
     <section class="section" id="pain-points">
       <div class="eyebrow">03 · From the Buyer Admin's side</div>
       <h2>Main pain points</h2>
-      <p class="measure">Before designing anything, tried to sit in the Admin's seat and name what actually makes this task hard for them day to day. These points became the actual brief designed against — more useful than the literal requirement list, because they explain <em>why</em> each requirement exists.</p>
+      <p class="measure">Before designing anything, tried to put myself in the Admin's shoes and write down what actually makes this job hard, day to day. These points ended up mattering more than the requirement list itself, because they explain <em>why</em> each requirement is there.</p>
 
       <div class="quote-grid">
         <div class="quote-card">
           <p class="q">"I don't know why the system thinks these are duplicates."</p>
-          <p class="a">A bare percentage gives no reason to trust it, so the safe move is to do nothing — which defeats the point of automation.</p>
+          <p class="a">A number with no reason behind it doesn't earn any trust. So the safe move is to do nothing, which defeats the whole point of automating this.</p>
         </div>
         <div class="quote-card">
           <p class="q">"I don't know which record is safe to keep."</p>
-          <p class="a">Several records, one has to become the source of truth going forward — getting it wrong means broken purchase orders later.</p>
+          <p class="a">There are several records, and one of them has to become the real one going forward. Pick the wrong one, and purchase orders break later.</p>
         </div>
         <div class="quote-card">
           <p class="q">"I'm not sure if this one is a duplicate or not."</p>
-          <p class="a">Real cases sit in a grey zone — need a way to leave something undecided instead of forcing a yes/no.</p>
+          <p class="a">Some cases really are unclear. There needs to be a way to leave something undecided instead of forcing a yes or no.</p>
         </div>
         <div class="quote-card">
           <p class="q">"There are thousands of these — I can't review them one by one forever."</p>
-          <p class="a">Sheer volume means the Admin needs to triage fast, not review carefully every single time.</p>
+          <p class="a">There are too many of these to check carefully one at a time. The Admin needs to move fast.</p>
         </div>
         <div class="quote-card">
           <p class="q">"If I make a mistake, can I undo it?"</p>
-          <p class="a">Merging feels permanent and risky with no visible safety net.</p>
+          <p class="a">Merging feels permanent and risky, with no safety net in sight.</p>
         </div>
         <div class="quote-card">
           <p class="q">"Who do I tell if the data itself is wrong?"</p>
-          <p class="a">Sometimes the problem isn't duplication at all — a record just has outdated or incorrect information, and there's no obvious path to flag that from here.</p>
+          <p class="a">Sometimes it's not even a duplicate — a record just has old or wrong information, and there's no clear way to flag that from here.</p>
         </div>
       </div>
     </section>
@@ -590,10 +590,10 @@ footer {
       <div class="eyebrow">04 · Prioritising the problem</div>
       <h2>The core problem, stated in one line</h2>
       <div class="callout">
-        <p>Help the Admin trust a suggested match enough to act on it — quickly, and without breaking anything downstream.</p>
+        <p>Help the Admin trust a suggested match enough to act on it, quickly, without breaking anything downstream.</p>
       </div>
       <div class="measure">
-        <p>Every other requirement in the brief is only useful <em>if</em> this works. Search, filters, bulk actions, notifications — all of them assume the Admin already trusts the suggestion in front of them. This is also the piece with no existing pattern to copy: search bars and filter dropdowns are solved problems, but explaining an algorithm's confidence in a way that earns trust is not — so it deserved the most design time, not the least.</p>
+        <p>Every other requirement only matters <em>if</em> this part works. Search, filters, bulk actions, notifications — all of it assumes the Admin already trusts what's in front of them. There's also no existing pattern to copy here. Search bars and filter dropdowns are solved problems. Explaining an algorithm's confidence in a way people actually trust is not. So this got the most design time, not the least.</p>
       </div>
 
       <div class="table-wrap" style="margin-top:24px;">
@@ -601,27 +601,27 @@ footer {
           <thead><tr><th style="width:110px;">Priority</th><th>Feature</th><th>Reasoning</th></tr></thead>
           <tbody>
             <tr><td><span class="pill tier-1">1 · Core</span></td><td>Confidence score + explanation</td><td>Nothing else matters if this isn't trusted</td></tr>
-            <tr><td><span class="pill tier-1">1 · Core</span></td><td>Lead selection + record comparison</td><td>The actual decision being made — inseparable from trust</td></tr>
+            <tr><td><span class="pill tier-1">1 · Core</span></td><td>Lead selection + record comparison</td><td>The actual decision being made — it depends on trust</td></tr>
             <tr><td><span class="pill tier-2">2 · Enabling</span></td><td>A way to leave a record undecided</td><td>Needed so the core decision isn't forced into a false yes/no</td></tr>
-            <tr><td><span class="pill tier-2">2 · Enabling</span></td><td>Status that reflects real progress</td><td>Trust in the decision must extend to trust in the tracking</td></tr>
-            <tr><td><span class="pill tier-3">3 · Scale</span></td><td>Search, filters, sort, virtual scrolling</td><td>Makes the core flow usable at 1,200+ groups — but only once the flow itself is right</td></tr>
-            <tr><td><span class="pill tier-3">3 · Scale</span></td><td>Bulk merge</td><td>A shortcut on top of the core decision, restricted to zero-judgment cases</td></tr>
-            <tr><td><span class="pill tier-4">4 · Supporting</span></td><td>Notifications</td><td>Communicates the outcome of a decision — doesn't change how it's made</td></tr>
+            <tr><td><span class="pill tier-2">2 · Enabling</span></td><td>Status that reflects real progress</td><td>If people trust the decision, they need to trust the tracking too</td></tr>
+            <tr><td><span class="pill tier-3">3 · Scale</span></td><td>Search, filters, sort, virtual scrolling</td><td>Makes the main flow usable with 1,200+ groups, but only matters once the flow works</td></tr>
+            <tr><td><span class="pill tier-3">3 · Scale</span></td><td>Bulk merge</td><td>A shortcut on top of the main decision, only for cases with no real judgment call</td></tr>
+            <tr><td><span class="pill tier-4">4 · Supporting</span></td><td>Notifications</td><td>Tells people what happened. Doesn't change how the decision gets made</td></tr>
             <tr><td><span class="pill tier-4">4 · Supporting</span></td><td>Reversibility / undo</td><td>A safety net around the core action, not the action itself</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="callout" style="margin-top:24px;">
-        <p><strong>The judgment call this reflects:</strong> treated confidence + decision-making as the product, and search/filters/bulk/notifications as infrastructure around it — necessary, but secondary. The opposite of working the brief top to bottom as a checklist: spend the least time on the parts that were easiest to get right, and the most on the one requirement with no clear "correct" answer.</p>
+        <p><strong>The judgment call here:</strong> treated confidence and decision-making as the actual product, and treated search, filters, bulk actions, and notifications as things built around it — needed, but not the main point. That's the opposite of working through the brief top to bottom like a checklist. It meant spending the least time on the easy parts, and the most time on the one part with no obvious right answer.</p>
       </div>
     </section>
 
     <!-- 05 CLARITY -->
     <section class="section" id="gaps">
       <div class="eyebrow">05 · What I need more clarity on</div>
-      <h2>Open questions, and the assumptions made to move forward</h2>
-      <p class="measure">Points the brief doesn't answer, plus what was assumed to keep designing instead of stalling on them.</p>
+      <h2>Open questions, and the assumptions made to keep moving</h2>
+      <p class="measure">Things the brief doesn't answer, and what was assumed instead of getting stuck on them.</p>
 
       <div class="spec-grid" style="margin-top:24px;">
         <div class="card clarity-card q">
@@ -629,18 +629,18 @@ footer {
           <ul class="clarity-list">
             <li><span class="ic">?</span><span>No logic given for how the confidence score should actually be calculated</span></li>
             <li><span class="ic">?</span><span>No answer for what happens to merged records' own data — overwritten, deleted, kept?</span></li>
-            <li><span class="ic">?</span><span>Notify is written at group level, but phrased in the singular ("the Supplier Manager responsible for <em>a</em> supplier instance") — suggests per-record, not just per-group</span></li>
-            <li><span class="ic">?</span><span>Nothing about undo or reversibility, despite the action being effectively permanent</span></li>
-            <li><span class="ic">?</span><span>The brief describes <em>why</em> duplicates happen (multiple Supplier Managers, overlapping entry) but only asks for cleanup, never anything to prevent the next one</span></li>
+            <li><span class="ic">?</span><span>The brief talks about notifying at the group level, but the wording says "the Supplier Manager responsible for <em>a</em> supplier instance" — singular. That sounds like it should work per record, not just per group</span></li>
+            <li><span class="ic">?</span><span>Nothing about undo, even though merging is basically permanent</span></li>
+            <li><span class="ic">?</span><span>The brief explains <em>why</em> duplicates happen — different Supplier Managers entering the same thing — but only asks for cleanup, never how to stop the next one</span></li>
           </ul>
         </div>
         <div class="card clarity-card a">
           <h3>Assumptions made to fill the gaps</h3>
           <ul class="clarity-list">
-            <li><span class="ic">→</span><span>A DUNS Number is generally reliable when present, since it's the strongest identifier available</span></li>
-            <li><span class="ic">→</span><span>Roughly 2–4% of records are duplicates, since the brief gives no real figure and a much lower rate would make the scale problem trivial</span></li>
-            <li><span class="ic">→</span><span>A supplier hierarchy already exists for linking related entities, since the brief doesn't say either way</span></li>
-            <li><span class="ic">→</span><span>The review and grouping thresholds are reasonable starting points, flagged as things to calibrate once there's real usage data</span></li>
+            <li><span class="ic">→</span><span>A DUNS number is reliable when it's there — it's the strongest ID available</span></li>
+            <li><span class="ic">→</span><span>About 2–4% of records are duplicates. The brief gives no real number, and a much lower rate would make the scale problem not really a problem</span></li>
+            <li><span class="ic">→</span><span>A supplier hierarchy already exists for linking related companies — the brief doesn't say either way, so this was assumed</span></li>
+            <li><span class="ic">→</span><span>The review and grouping thresholds here are just a starting point. They'll need real usage data to get right</span></li>
           </ul>
         </div>
       </div>
@@ -685,7 +685,7 @@ footer {
 
       <h3 style="margin-top:8px;">A. How groups form</h3>
       <div class="measure">
-        <p>Every pair of records compared on name, DUNS number, head office, supplier code, email domain. Similar pairs get linked; links chain — if A matches B and B matches C, all three become one group even if A and C never directly matched. Only records that clear a threshold ever form a group — most of the 100K+ never appear in the queue at all.</p>
+        <p>Every pair of records gets compared on name, DUNS number, head office, supplier code, and email domain. If two records look similar, they get linked. These links chain together — if A matches B, and B matches C, then A, B, and C all become one group, even if A and C never matched directly. Only records that pass a certain score ever form a group. Most of the 100,000+ records never even show up in the queue.</p>
       </div>
 
       <h3 style="margin-top:36px;">B. The confidence score — three passes to get right</h3>
@@ -695,7 +695,7 @@ footer {
           <div>
             <span class="tag" style="color:var(--bad-ink);">Failed</span>
             <h4>Plain weighted average</h4>
-            <p>Fails on an obvious real-world case: "IBM New York" and "IBM London" — identical name, different company — would score falsely high.</p>
+            <p>Fails on an easy real case: "IBM New York" and "IBM London" have the same name but are different companies. This method would still score them as a high match, which is wrong.</p>
           </div>
         </div>
         <div class="step">
@@ -703,7 +703,7 @@ footer {
           <div>
             <span class="tag" style="color:var(--ink-faint);">Refined</span>
             <h4>Split hard identifiers from soft attributes</h4>
-            <p><strong>Hard identifier:</strong> DUNS number, supplier code — issued externally, a match means something real. <strong>Soft attributes:</strong> name, location, email domain — circumstantial only.</p>
+            <p><strong>Hard identifiers:</strong> DUNS number and supplier code. These come from outside the company, so a match actually means something. <strong>Soft attributes:</strong> name, location, email domain. These can match by coincidence.</p>
           </div>
         </div>
         <div class="step final">
@@ -711,7 +711,7 @@ footer {
           <div>
             <span class="tag" style="color:var(--accent-ink);">The real gap</span>
             <h4>Found while writing the explanation</h4>
-            <p>Both records have a DUNS number, and the numbers don't match. The original model gave this <em>no penalty</em> — just no shortcut to a high score. That's wrong: a DUNS mismatch is strong evidence of two separate companies, not neutral. Fixed by adding a <strong>cap</strong>, not a penalty multiplier — multipliers compound into numbers nobody can sanity-check.</p>
+            <p>Case: both records have a DUNS number, and the numbers are different. The first version of the model gave <em>no penalty</em> for this — it just didn't give a bonus either. That's wrong. Two different DUNS numbers is a strong sign these are separate companies, not a neutral sign. Fixed it by adding a <strong>cap</strong> on the score, not a penalty that multiplies — multipliers stack up into numbers nobody can check by eye.</p>
           </div>
         </div>
       </div>
@@ -749,7 +749,7 @@ footer {
 
       <h3 style="margin-top:44px;">C. Explaining the score — a decision to simplify twice</h3>
       <div class="measure">
-        <p>First version showed the full math breakdown — points, weights, caps. Cut it: nobody reviewing 1,200 groups wants to check arithmetic, they need to <em>believe</em> the number, not audit it. Replaced with plain findings and one sentence.</p>
+        <p>The first version showed the full math: points, weights, caps. Cut that. Nobody reviewing 1,200 groups wants to check arithmetic — they just need to <em>believe</em> the number, not check it. Replaced it with plain findings and one sentence.</p>
       </div>
 
       <div class="mock">
@@ -771,22 +771,22 @@ footer {
           <div class="mock-action">→ Worth checking with the supplier manager before merging.</div>
         </div>
       </div>
-      <p style="font-size:0.85rem; margin-top:14px; color:var(--ink-faint);">✓ / ✗ / – mark agrees / disagrees / no evidence either way. A heading translates the number, and a closing line points to an action.</p>
+      <p style="font-size:0.85rem; margin-top:14px; color:var(--ink-faint);">✓ / ✗ / – show agree, disagree, or no evidence. A heading explains the number in plain words, and the last line says what to do next.</p>
 
       <h3 style="margin-top:44px;">D. Choosing the lead record</h3>
       <div class="measure">
-        <p>System pre-selects, Admin can override. Order: <strong>Active status → most complete record → most open POs → most recently updated → oldest.</strong> Most open POs matters most in practice — fewer purchase orders need re-pointing after merge.</p>
+        <p>The system picks one automatically, but the Admin can change it. Order it checks: <strong>active status → most complete record → most open POs → most recently updated → oldest.</strong> Open POs matter most in real use — fewer purchase orders to move after a merge.</p>
       </div>
 
       <h3 style="margin-top:36px;">E. What merging actually changes</h3>
       <div class="measure">
-        <p>Merged records keep their own data — never overwritten by the lead's values. Overwriting would hide the evidence in the comparison table, misrepresent what actually happens to the data, and produce several identical records instead of one clear one. The lead absorbs values only for fields it was blank on — never overwrites a value that's already there. Old codes/names still resolve to the lead on search, so historical POs don't break.</p>
+        <p>Merged records keep their own data. The lead's values never overwrite them. If they did, it would hide the evidence in the comparison table and misrepresent what actually happened to the data. The lead only picks up values for fields it was missing — it never overwrites a field that already has something in it. Old codes and names still point to the lead when someone searches, so old purchase orders don't break.</p>
       </div>
 
       <h3 style="margin-top:36px;">F. Marking duplicates — kept it to a single checkbox</h3>
       <div class="measure">
-        <p>Each row has one <strong>Duplicate</strong> checkbox, ticked by default for every non-lead record. Untick it to leave that record out of the merge — no separate flow, no reason required.</p>
-        <p>This replaced an earlier version that asked for a reason every time a record was excluded. It solved a real problem in theory but added a confirmation step to something that's really just a selection, not a commitment. The commitment happens at <strong>Merge</strong>, not before it.</p>
+        <p>Each row has one <strong>Duplicate</strong> checkbox. It's ticked by default for every record that isn't the lead. Untick it to leave that record out of the merge — no extra steps, no reason needed.</p>
+        <p>This replaced an earlier version that asked for a reason every time you excluded a record. That solved a real problem on paper, but it added a confirm step to something that's just a selection, not a real decision. The real decision happens at <strong>Merge</strong>, not before.</p>
       </div>
 
       <div class="mock" style="max-width:560px;">
@@ -801,7 +801,7 @@ footer {
 
       <h3 style="margin-top:44px;">G. Status — worked out from what's actually been done, not clicked by hand</h3>
       <div class="measure">
-        <p>Status reflects the real state of the group, not a manual flag. The point of keeping Reviewed and Merged separate: reviewing is a judgment call, merging is an irreversible action. Collapsing them into one status would hide whether anything had actually been committed yet.</p>
+        <p>Status shows the real state of the group. Nobody sets it by hand. Reviewed and Merged are kept separate on purpose — reviewing is a judgment call, merging is permanent. If they were the same status, you couldn't tell whether anything had actually been committed yet.</p>
       </div>
       <div class="status-legend">
         <div class="status-item"><span class="pill pill--neutral">Pending</span> nothing done yet</div>
@@ -815,23 +815,23 @@ footer {
     <section class="section" id="scale">
       <div class="eyebrow">08 · Designing for scale</div>
       <h2>Built and tested at 1,240 groups</h2>
-      <p class="measure">Not 6 — so scale problems were real rather than theoretical.</p>
+      <p class="measure">Not 6 groups — this is real scale, not a toy example.</p>
       <div class="feat-grid">
         <div class="feat-card"><h4>Virtual scrolling</h4><p>Only visible rows rendered.</p></div>
-        <div class="feat-card"><h4>Full-width filter bar</h4><p>Freeing the side rail to be a pure list.</p></div>
-        <div class="feat-card"><h4>Sort by open PO exposure</h4><p>Default — the only ordering with a real business case: duplicate groups sitting on live POs are actively distorting spend reporting right now.</p></div>
-        <div class="feat-card"><h4>Match quality chips</h4><p>Clear match, Pending review, In progress, Merged — so the shape of the backlog is visible at a glance, not just a total count.</p></div>
-        <div class="feat-card"><h4>Keyboard navigation (J/K)</h4><p>For clearing a long backlog without constant mouse trips.</p></div>
-        <div class="feat-card"><h4>Bulk merge, gated</h4><p>Strictly to DUNS-matched groups only — the one case with zero judgment required.</p></div>
+        <div class="feat-card"><h4>Full-width filter bar</h4><p>Keeps the side list clean — just groups, nothing else.</p></div>
+        <div class="feat-card"><h4>Sort by open PO exposure</h4><p>The default sort. It's the only order with a real business reason — groups sitting on live POs are messing up spend numbers right now.</p></div>
+        <div class="feat-card"><h4>Match quality chips</h4><p>Clear match, Pending review, In progress, Merged. You can see the shape of the backlog at a glance, not just one big number.</p></div>
+        <div class="feat-card"><h4>Keyboard navigation (J/K)</h4><p>Lets you clear a long backlog without reaching for the mouse every time.</p></div>
+        <div class="feat-card"><h4>Bulk merge, gated</h4><p>Only works on groups where the DUNS number matches — the one case with no real judgment call.</p></div>
       </div>
     </section>
 
     <!-- 09 CONFIRMATION -->
     <section class="section" id="confirmation">
       <div class="eyebrow">09 · Deciding what needs confirmation</div>
-      <h2>Friction scales with how easy a mistake is to notice</h2>
+      <h2>How much friction, based on how easy a mistake is to spot</h2>
       <div class="callout">
-        <p>A bad merge is loud — wrong PO, angry manager, numbers look off. Self-correcting. Unchecking a duplicate is quiet and reversible — nothing commits until Merge is actually clicked, so it doesn't need its own confirmation.</p>
+        <p>A bad merge is loud — wrong PO, an angry manager, numbers that look off. Someone notices fast. Unticking a duplicate is quiet and easy to undo — nothing actually happens until Merge is clicked, so it doesn't need its own confirmation.</p>
       </div>
       <div class="table-wrap" style="margin-top:20px;">
         <table>
@@ -849,29 +849,29 @@ footer {
     <!-- 10 DROPPED -->
     <section class="section" id="dropped">
       <div class="eyebrow">10 · Ideas explored and dropped</div>
-      <h2>What didn't survive scrutiny</h2>
+      <h2>What got cut</h2>
       <div class="drop-grid">
         <div class="drop-card">
           <span class="tag mark mark--disagree" style="width:auto; padding:2px 8px; border-radius:6px; font-size:11px;">CUT</span>
           <h4>A reason-picker for excluding a record from a merge</h4>
-          <p>Built this first — untick a record, and it asked why (different entity, subsidiary, wrong data, etc). Dropped it because it treated a selection like a commitment.</p>
-          <div class="cut">A single checkbox does the job; the reasoning only matters once you actually merge.</div>
+          <p>Built this first. Untick a record, and it would ask why — different company, subsidiary, wrong data, and so on. Dropped it because it treated a simple selection like a big decision.</p>
+          <div class="cut">A single checkbox does the job. The reasoning only matters once you actually merge.</div>
         </div>
         <div class="drop-card">
           <span class="tag mark mark--disagree" style="width:auto; padding:2px 8px; border-radius:6px; font-size:11px;">CUT</span>
           <h4>A manual "mark reviewed" button</h4>
-          <p>No honest use case survived scrutiny. If status is derived from what's actually been done, a manual override just lets someone lie about progress.</p>
+          <p>Couldn't find a real reason to keep it. If status comes from what's actually been done, a manual button just lets someone fake progress.</p>
         </div>
         <div class="drop-card">
           <span class="tag mark mark--disagree" style="width:auto; padding:2px 8px; border-radius:6px; font-size:11px;">CUT</span>
           <h4>Letting the Admin pick a field value from any record to fix the lead</h4>
-          <p>Solved a real problem — what if the surviving record has wrong data? — but meant editing supplier data from a de-dup screen.</p>
+          <p>This solved a real problem: what if the record you keep has wrong data in it? But it meant editing supplier data from the de-dup screen.</p>
           <div class="cut">A job that belongs with the Supplier Manager, not here.</div>
         </div>
         <div class="drop-card">
           <span class="tag mark mark--disagree" style="width:auto; padding:2px 8px; border-radius:6px; font-size:11px;">CUT</span>
           <h4>Letting the Admin create a brand-new lead record</h4>
-          <p>Rejected outright. This is the exact behaviour that causes duplicates in the first place, and a new record has no PO history.</p>
+          <p>Rejected right away. This is exactly the behaviour that causes duplicates in the first place, and a brand-new record has no PO history.</p>
         </div>
       </div>
     </section>
@@ -879,37 +879,37 @@ footer {
     <!-- 11 EXPLORATIONS -->
     <section class="section" id="explorations">
       <div class="eyebrow">11 · Along the way</div>
-      <h2>Initial design explorations and confusions</h2>
-      <p class="measure">Some decisions weren't clean from the start — small, specific UX questions that needed working through before the final screens held together.</p>
+      <h2>Early explorations and things I got stuck on</h2>
+      <p class="measure">Some decisions weren't obvious from the start. A few small UX questions had to get worked out before the final screens made sense.</p>
 
       <div class="explore-list">
         <div class="explore-item card">
           <h4>How much reasoning to show for the score</h4>
-          <p>Weighed two options: collapse the reasoning into a short one-line tag next to the score (like "DUNS mismatch +3"), or lay out the full reasoning inside the table cell itself. Landed on both — a compact tag in the cell for scanning, with the full plain-language breakdown available on demand.</p>
+          <p>Two options: a short one-line tag next to the score, like "DUNS mismatch +3", or the full reasoning laid out in the table cell. Ended up doing both — a short tag for scanning quickly, and the full plain-language reasoning available if you click in.</p>
           <div class="explore-shot"><img src="images/explore-01-score-reasoning.png" alt="Compact score tag in the table cell, with the full reasoning expanded below it" /></div>
         </div>
 
         <div class="explore-item card">
           <h4>Filters as pills, not a dropdown</h4>
-          <p>Considered tucking review status into a dropdown to save space. Decided on pills instead — it's important enough, and used often enough by Admins, that it deserves to stay visible and one click away, not hidden behind a menu.</p>
+          <p>Thought about putting review status in a dropdown to save space. Decided on pills instead. Admins use it a lot, and it's important, so it should stay visible and one click away, not hidden in a menu.</p>
           <div class="explore-shot"><img src="images/explore-02-filters-pills.png" alt="Review status shown as a row of pills instead of a dropdown" /></div>
         </div>
 
         <div class="explore-item card">
           <h4>Ticking a duplicate shouldn't ask for anything</h4>
-          <p>The open question: should every tick of the Duplicate checkbox fire a confirmation, or a notification? Decided against it — the tick is reversible, so it doesn't need to interrupt. Once every non-lead record is ticked, the Admin can go straight to "Notify duplicates" in one action.</p>
+          <p>The question: should ticking the Duplicate checkbox trigger a confirmation, or a notification, every single time? Decided no — the tick can be undone, so it doesn't need to interrupt anyone. Once everything is ticked, the Admin can just click "Notify duplicates" directly.</p>
           <div class="explore-shot"><img src="images/explore-03-duplicate-notify.png" alt="Notify duplicates and Merge selected as direct actions, no per-tick confirmation" /></div>
         </div>
 
         <div class="explore-item card">
           <h4>What search actually searches</h4>
-          <p>The open question: does search operate on groups, or on the instances inside them? Concluded it needs to reach into the instances within every group — legal name, DUNS, supplier code, contact — so an Admin can jump straight to the one record they're after instead of hunting through groups first.</p>
+          <p>The question: does search look at groups, or at the records inside the groups? Decided it needs to search inside every group — legal name, DUNS, supplier code, contact — so the Admin can go straight to the one record they want instead of opening group after group.</p>
           <div class="explore-shot"><img src="images/explore-04-search.png" alt="Search box scoped to search across instances within groups" /></div>
         </div>
 
         <div class="explore-item card">
           <h4>Marking what's different from the lead</h4>
-          <p>Needed a way to show, at a glance, which fields on a duplicate diverge from the lead. Settled on a soft yellow background on any cell that differs, paired with a blue background on the lead row itself — so both "the record being kept" and "what doesn't match it" read instantly.</p>
+          <p>Needed a quick way to show which fields on a duplicate are different from the lead. Went with a soft yellow background on any cell that's different, and a blue background on the lead row. That way both things are obvious right away — which record is being kept, and what doesn't match.</p>
           <div class="explore-shot"><img src="images/explore-05-yellow-highlight.png" alt="Blue background on the lead row, yellow background on cells that differ from the lead" /></div>
         </div>
       </div>
@@ -926,7 +926,7 @@ footer {
         <li><span class="ico">4</span><span>Every non-lead record ends up in one of three places: <strong>merged into the lead, left unticked</strong> for a later look, or <strong>ticked and waiting</strong> to be merged.</span></li>
         <li><span class="ico">5</span><span><strong>Status derived automatically</strong> — Pending, Reviewed, Merged, or Review skipped — never set by hand.</span></li>
         <li><span class="ico">6</span><span><strong>Notifications available per record and per group</strong>, matching the brief's actual wording.</span></li>
-        <li><span class="ico">7</span><span><strong>Merging and notifying confirm; selecting and skipping don't</strong> — friction is intentional, not uniform.</span></li>
+        <li><span class="ico">7</span><span><strong>Merging and notifying ask for confirmation; selecting and skipping don't</strong> — the friction is on purpose, not the same everywhere.</span></li>
       </ul>
 
       <div class="screens-group">
@@ -946,7 +946,7 @@ footer {
           </figure>
           <figure class="screen">
             <a href="images/final-04-merge-confirm-dialog.png" target="_blank"><img src="images/final-04-merge-confirm-dialog.png" alt="Merge confirmation dialog with a data quality warning" /></a>
-            <figcaption>Merge confirmation — surfaces a data-quality warning on the lead before anything commits.</figcaption>
+            <figcaption>Merge confirmation — shows a data-quality warning on the lead before anything is final.</figcaption>
           </figure>
           <figure class="screen">
             <a href="images/final-05-merged-state.png" target="_blank"><img src="images/final-05-merged-state.png" alt="Merged state with Undo Merge available" /></a>
@@ -973,27 +973,27 @@ footer {
     <!-- 13 INSIGHTS -->
     <section class="section" id="insights">
       <div class="eyebrow">13 · Insights and reflection</div>
-      <h2>What this process actually taught</h2>
+      <h2>What this taught me</h2>
 
       <div class="insight">
         <span class="num">01</span>
-        <p><strong>The hardest problems weren't on the requirements list</strong> — the scoring logic and the status model both needed real design thinking the brief never asked for directly.</p>
+        <p><strong>The hardest problems weren't even on the requirements list.</strong> The scoring logic and the status model both needed real thinking that the brief never asked for.</p>
       </div>
       <div class="insight">
         <span class="num">02</span>
-        <p>Naming the pain points before designing anything <strong>changed the priority order entirely</strong>. The literal requirement list treats every bullet as equally important; the pain points made it obvious that trust in the confidence score was the one thing everything else depended on.</p>
+        <p>Writing down the pain points before designing anything <strong>changed the whole order of priorities</strong>. A requirement list treats every line as equally important. The pain points made it obvious that trust in the confidence score was the one thing everything else depended on.</p>
       </div>
       <div class="insight">
         <span class="num">03</span>
-        <p>The best bug was found by <strong>trying to explain the system, not by testing it</strong> — the DUNS-mismatch scoring gap only became visible when forced to write a plain-language reason for a score.</p>
+        <p>The best bug wasn't found by testing — it was found by <strong>trying to explain the system in plain words</strong>. The DUNS-mismatch gap in the scoring only showed up once I had to write a plain reason for a score.</p>
       </div>
       <div class="insight">
         <span class="num">04</span>
-        <p><strong>Removing features mattered more than adding them.</strong> The reason-picker for exclusions is the clearest example — built, used, then cut because it treated a simple selection like a serious decision. That kind of self-correction says more than a longer feature list would.</p>
+        <p><strong>Cutting features mattered more than adding them.</strong> The reason-picker is the clearest example — it got built, used, and then cut, because it treated a simple selection like a big decision. Catching that matters more than having a longer feature list.</p>
       </div>
       <div class="insight">
         <span class="num">05</span>
-        <p>The underlying idea holding the whole design together: <strong>the system proposes, the person decides</strong> — every suggestion carries a reason, and nothing commits until the Admin actually merges. That's what makes it possible to trust automation enough to act on it at volume.</p>
+        <p>The one idea holding this whole design together: <strong>the system suggests, the person decides</strong>. Every suggestion comes with a reason, and nothing is final until the Admin actually clicks Merge. That's what makes it possible to trust automation enough to actually use it at scale.</p>
       </div>
     </section>
   </main>
